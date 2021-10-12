@@ -3,11 +3,6 @@ import "./App.scss";
 import contacts from "./contacts.json";
 
 const initialState = contacts.slice(0, 5);
-
-console.log(contacts);
-
-console.log(initialState);
-
 class App extends React.Component {
   constructor() {
     super();
@@ -16,10 +11,26 @@ class App extends React.Component {
     };
   }
 
+  addrandomContact = () => {
+    const leftOverContacts = contacts.filter(
+      (el) => !this.state.contacts.includes(el)
+    );
+    if (leftOverContacts.length) {
+      const randomContact =
+        leftOverContacts[Math.floor(Math.random() * leftOverContacts.length)];
+      this.setState({
+        contacts: [...this.state.contacts, randomContact],
+      });
+    }
+  };
+
   render() {
     return (
       <div className="App">
         <h1>IronContacts</h1>
+        <div id="button-container">
+          <button onClick={this.addrandomContact}>Add Random Contact</button>
+        </div>
         <table>
           <thead>
             <tr>
