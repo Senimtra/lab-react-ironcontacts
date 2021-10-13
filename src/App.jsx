@@ -27,7 +27,7 @@ class App extends React.Component {
   sortByName = () => {
     this.setState({
       contacts: [...this.state.contacts].sort((a, b) =>
-        a.name.localeCompare(b.name)
+        a.name.split(" ")[1].localeCompare(b.name.split(" ")[1])
       ),
     });
   };
@@ -55,24 +55,30 @@ class App extends React.Component {
           <button onClick={this.sortByName}>Sort by name</button>
           <button onClick={this.sortByPopularity}>Sort by popularity</button>
         </div>
-        <table>
+        <table class="table table-hover">
           <thead>
             <tr>
-              <th>Picture</th>
+              <th class="td-outer">Picture</th>
               <th>Name</th>
               <th>Popularity</th>
-              <th>Action</th>
+              <th class="td-outer">Action</th>
             </tr>
           </thead>
           <tbody>
             {this.state.contacts.map((el) => (
-              <tr key={el.name}>
-                <td>
+              <tr key={el.name} class="crZoom">
+                <td id="td-outer-left">
                   <img src={el.pictureUrl} alt="" />
                 </td>
-                <td id="text">{el.name}</td>
-                <td id="text">{el.popularity.toFixed(2)}</td>
-                <td>
+                <td id="name" class="text">
+                  {el.name.split(" ")[0]}
+                  <br />
+                  {el.name.split(" ").slice(1)}
+                </td>
+                <td id="popularity" class="text">
+                  <div>{el.popularity.toFixed(2)}</div>
+                </td>
+                <td id="td-outer-right">
                   <button onClick={() => this.deleteContact(el.name)}>
                     Delete
                   </button>
